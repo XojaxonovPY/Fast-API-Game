@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    image: fast
+    container_name: fa
+    restart: always
+    command: main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - '8001:8001'
+    depends_on:
+      - db
+
+  admin:
+    build: .
+    image: admin
+    container_name: ad
+    restart: always
+    command: uvicorn web.app:app --host 0.0.0.0 --port 8001 --reload
+    ports:
+      - '8002:8002'
+    depends_on:
+      - db
+
+  db:
+    image: postgres:alpine
+    container_name: pg2
+    restart: always
+    ports:
+      - '5433:5432'
+    environment:
+      POSTGRES_PASSWORD: 1
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  rd:
+    image: redis:alpine
+    container_name: rd2
+    restart: always
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_data:/data  \
+
+  celery:
+    build: .
+    image: celery_fast
+    container_name: cla
+    restart: always
+    command: sh -c "celery -A instruments.tasks:app worker --loglevel=info --pool=solo"
+    depends_on:
+      - rd
+
+volumes:
+  pg_data:
+  redis_data:

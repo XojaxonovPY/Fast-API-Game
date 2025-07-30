@@ -1,0 +1,8 @@
+<!-- join.html -->
+<h2>Join Game: {{ game_code }}</h2>
+
+<form method="GET" action="/socket/kahoot/">
+    <input type="hidden" name="game_code" value="{{ game_code }}">
+    <input type="text" name="nickname" placeholder="Enter your nickname" required>
+    <button type="submit">Join</button>
+</form>

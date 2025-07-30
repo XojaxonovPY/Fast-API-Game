@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kahoot Game</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        #leaderboard {
+            margin-top: 30px;
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+        }
+
+        #leaderboard h3 {
+            margin-bottom: 10px;
+        }
+
+        .player-row {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<h1>🎮 Kahoot O'yiniga Xush kelibsiz</h1>
+
+<div id="game-section">
+    <h2 id="question-text">Savol yuklanmoqda...</h2>
+    <div id="options-container"></div>
+    <p id="feedback" style="color: green; font-weight: bold;"></p>
+
+    <div id="leaderboard">
+        <h3>🏆 Reyting</h3>
+        <div id="leaderboard-players"></div>
+    </div>
+</div>
+
+<script>
+    let socket;
+    let currentQuestionIndex = 0;
+    let questions = [];
+
+    // ❗ game_code va nickname URL dan olinadi
+    const params = new URLSearchParams(window.location.search);
+    const room = params.get("game_code");
+    const name = params.get("nickname");
+
+    if (!room || !name) {
+        alert("Room code yoki nickname topilmadi.");
+        throw new Error("Missing game_code or nickname");
+    }
+
+    // Avtomatik ulanish
+    socket = new WebSocket(`ws://localhost:8000/socket/ws/${room}/${name}/`);
+
+    socket.onopen = async () => {
+        const res = await fetch(`/api/questions/list/${room}`);
+        questions = await res.json();
+        loadQuestion();
+    };
+
+    socket.onmessage = function (event) {
+        const message = event.data;
+        try {
+            const json = JSON.parse(message);
+            if (json.type === "leaderboard") {
+                updateLeaderboard(json.players);
+            }
+        } catch (e) {
+            document.getElementById("feedback").innerText = message;
+        }
+    };
+
+    socket.onclose = function () {
+        alert("Ulanish tugadi.");
+        location.reload();
+    };
+
+    async function loadQuestion() {
+        if (currentQuestionIndex >= questions.length) {
+            document.getElementById("question-text").innerText = "🎉 O'yin tugadi!";
+            document.getElementById("options-container").innerHTML = "";
+            return;
+        }
+
+        const question = questions[currentQuestionIndex];
+        document.getElementById("question-text").innerText = question.text;
+
+        const res = await fetch(`/api/options/list/${question.id}`);
+        const options = await res.json();
+
+        const container = document.getElementById("options-container");
+        container.innerHTML = "";
+
+        options.forEach(opt => {
+            const btn = document.createElement("button");
+            btn.innerText = opt.text;
+            btn.onclick = () => sendAnswer(opt.text);
+            container.appendChild(btn);
+        });
+    }
+
+    function sendAnswer(answer) {
+        socket.send(answer);
+        currentQuestionIndex++;
+        setTimeout(() => {
+            document.getElementById("feedback").innerText = "";
+            loadQuestion();
+        }, 1500);
+    }
+
+    function updateLeaderboard(players) {
+        const container = document.getElementById("leaderboard-players");
+        container.innerHTML = "";
+        players.forEach((p, index) => {
+            const div = document.createElement("div");
+            div.className = "player-row";
+            div.innerText = `${index + 1}. ${p.name} — ${p.score} ball`;
+            container.appendChild(div);
+        });
+    }
+</script>
+</body>
+</html>
