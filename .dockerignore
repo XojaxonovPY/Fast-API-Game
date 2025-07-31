@@ -3,4 +3,5 @@
 .gitignore
 Auth
 .env_copy
+media/qr_codes/*
 

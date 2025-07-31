@@ -1,12 +1,9 @@
 from os import getenv
 from dotenv import load_dotenv
 from redis.asyncio import Redis
-
 from utils.env_path import Env_path
 
 load_dotenv(Env_path)
-
-redis = Redis()
 
 
 class Settings:
@@ -18,5 +15,8 @@ class Settings:
     ADMIN = getenv('ADMIN')
     PASSWORD = getenv('PASSWORD')
     REDIS_URL = getenv('REDIS_URL')
-    ADMIN_USERNAME=getenv('ADMIN_USERNAME')
-    ADMIN_PASSWORD=getenv('ADMIN_PASSWORD')
+    ADMIN_USERNAME = getenv('ADMIN_USERNAME')
+    ADMIN_PASSWORD = getenv('ADMIN_PASSWORD')
+
+
+redis = Redis.from_url(Settings.REDIS_URL, decode_responses=True)

@@ -1,13 +1,22 @@
+import asyncio
+
 from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
 from fastapi.security import OAuth2PasswordBearer
 from fastapi.staticfiles import StaticFiles
-
+from contextlib import asynccontextmanager
 from apps import main, socket, login_register
 from db import engine
 from db.models import metadata
 
-app = FastAPI(title="User API")
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    async with engine.begin() as conn:
+        await conn.run_sync(metadata.create_all)
+    yield
+
+
+app = FastAPI(title="User API",lifespan=lifespan)
 
 app.include_router(main, prefix="/api", tags=["api"])
 app.include_router(socket, prefix='/socket', tags=["socket"])
@@ -37,7 +46,12 @@ def custom_openapi():
     app.openapi_schema = openapi_schema
     return app.openapi_schema
 
-metadata.create_all(engine)
+async def init_models():
+    async with engine.begin() as conn:
+        await conn.run_sync(metadata.create_all)
+
+if __name__ == "__main__":
+    asyncio.run(init_models())
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login/token/")
 

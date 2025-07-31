@@ -6,7 +6,7 @@ services:
     image: fast
     container_name: fa
     restart: always
-    command: main:app --host 0.0.0.0 --port 8000 --reload
+    command: "sh -c 'python main.py && uvicorn main:app --host 0.0.0.0 --port 8001 --reload'"
     ports:
       - '8001:8001'
     depends_on:
@@ -17,7 +17,7 @@ services:
     image: admin
     container_name: ad
     restart: always
-    command: uvicorn web.app:app --host 0.0.0.0 --port 8001 --reload
+    command: uvicorn web.app:app --host 0.0.0.0 --port 8002 --reload
     ports:
       - '8002:8002'
     depends_on:
@@ -48,7 +48,7 @@ services:
     image: celery_fast
     container_name: cla
     restart: always
-    command: sh -c "celery -A instruments.tasks:app worker --loglevel=info --pool=solo"
+    command: celery -A instruments.tasks:app worker --loglevel=info --pool=solo
     depends_on:
       - rd
 
