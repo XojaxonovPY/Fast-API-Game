@@ -6,7 +6,7 @@ services:
     image: fast
     container_name: fa
     restart: always
-    command: "sh -c 'python main.py && uvicorn main:app --host 0.0.0.0 --port 8001 --reload'"
+    command: uvicorn main:app --host 0.0.0.0 --port 8001 --reload
     ports:
       - '8001:8001'
     depends_on:

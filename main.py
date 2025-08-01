@@ -9,6 +9,7 @@ from apps import main, socket, login_register
 from db import engine
 from db.models import metadata
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     async with engine.begin() as conn:
@@ -16,13 +17,14 @@ async def lifespan(app: FastAPI):
     yield
 
 
-app = FastAPI(title="User API",lifespan=lifespan)
+app = FastAPI(title="User API", lifespan=lifespan)
 
 app.include_router(main, prefix="/api", tags=["api"])
 app.include_router(socket, prefix='/socket', tags=["socket"])
 app.include_router(login_register, prefix="/login", tags=["login"])
 
 app.mount("/media", StaticFiles(directory="media"), name="media")
+
 
 def custom_openapi():
     if app.openapi_schema:
@@ -46,13 +48,12 @@ def custom_openapi():
     app.openapi_schema = openapi_schema
     return app.openapi_schema
 
+
 async def init_models():
     async with engine.begin() as conn:
         await conn.run_sync(metadata.create_all)
 
 
-
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login/token/")
-
 
 app.openapi = custom_openapi
