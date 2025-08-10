@@ -71,6 +71,7 @@ Ilova http://127.0.0.1:8000 manzilida ishga tushadi.
 ```bash
 pytest
 ```
+## ENV File konfiguratsiyasi
 ```env
 DB_URL=postgresql+asyncpg://db_name:password@host:port/db_name
 EMAIL_FROM=your_email
