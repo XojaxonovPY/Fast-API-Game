@@ -11,21 +11,24 @@ chiqilgan va [**Kahoot**](https://kahoot.com/) — web-saytiga o‘xshatib yarat
 - **FastAPI**: Yuqori samaradorlikka ega web freymorki.
 - **WebSocket**: Real-vaqtda ulanish va xabar almashish imkoniyati.
 - **Docker**: Ilovani konteynerlash va uni turli muhitlarda ishlatish imkonini beradi.
+- **SQLAlchemy**:Python ORM Bilan (asyns) tarzda ishlaydi va DB bilan malumot almashish tezroq boladi.
 - **Alembic**: Ma'lumotlar bazasidagi o'zgarishlarni boshqarish uchun migratsiya vositasi.
 - **pytest**: Testlarni yozish va bajarish uchun vosita.
 
 
 ## 🛠 Texnologiyalar
 
-| Texnologiya      | Tavsifi                                               |
-|------------------|-------------------------------------------------------|
-| Python 3.12      | Asosiy dasturlash tili                                |
-| FAST API         | Backend API yaratish freymvorki                       |
-| PostgreSQL       | Ma’lumotlar bazasi                                    |
-| WebSocket        | Real-time ulanish                                     |
-| Docker           | Konteynerizatsiya                                     |
-| Redis            | Kesh va xabar brokeri                                 |
-| Celery           | Fon vazifalarni asinxron bajarish va periodik ishlar  |
+| Texnologiya      | Tavsifi                                                       |
+|------------------|---------------------------------------------------------------|
+| Python 3.12      | Asosiy dasturlash tili                                        |
+| FAST API         | Backend API yaratish freymvorki                               |
+| PostgreSQL       | Ma’lumotlar bazasi                                            |
+| WebSocket        | Real-time ulanish                                             |
+| Docker           | Konteynerizatsiya                                             |
+| Redis            | Kesh va xabar brokeri                                         |
+| Celery           | Fon vazifalarni asinxron bajarish va periodik ishlar          |
+| SQLAlchemy       | Python ORM va SQL toolkiti, DB bilan obyektlar orqali ishlash |
+
 
 
 ## 🛠️ O'rnatish va ishga tushirish
@@ -55,7 +58,7 @@ docker-compose up --build
 4. Ma'lumotlar bazasini migratsiya qilish
 
 ```bash
-alembic revision --autogenerate -m "Create a baseline migrations && alembic upgrade head
+alembic revision --autogenerate -m "Create a baseline migrations" && alembic upgrade head
 ```
 
 5. Ilovani ishga tushirish
