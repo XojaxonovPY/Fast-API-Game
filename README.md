@@ -6,7 +6,6 @@
 ma'lumotlarni taqdim etadi. Ushbu loyiha Python dasturlash tili va FastAPI web freymorkidan foydalangan holda ishlab
 chiqilgan va [**Kahoot**](https://kahoot.com/) — web-saytiga o‘xshatib yaratilgan.
 
-
 ## ⚙️ Asosiy xususiyatlar
 
 - **FastAPI**: Yuqori samaradorlikka ega web freymorki.
@@ -14,6 +13,20 @@ chiqilgan va [**Kahoot**](https://kahoot.com/) — web-saytiga o‘xshatib yarat
 - **Docker**: Ilovani konteynerlash va uni turli muhitlarda ishlatish imkonini beradi.
 - **Alembic**: Ma'lumotlar bazasidagi o'zgarishlarni boshqarish uchun migratsiya vositasi.
 - **pytest**: Testlarni yozish va bajarish uchun vosita.
+
+
+## 🛠 Texnologiyalar
+
+| Texnologiya      | Tavsifi                                               |
+|------------------|-------------------------------------------------------|
+| Python 3.11      | Asosiy dasturlash tili                                |
+| FAST API         | Backend API yaratish freymvorki                       |
+| PostgreSQL       | Ma’lumotlar bazasi                                    |
+| WebSocket        | Real-time ulanish                                     |
+| Docker           | Konteynerizatsiya                                     |
+| Redis            | Kesh va xabar brokeri                                 |
+| Celery           | Fon vazifalarni asinxron bajarish va periodik ishlar  |
+
 
 ## 🛠️ O'rnatish va ishga tushirish
 
@@ -58,6 +71,15 @@ Ilova http://127.0.0.1:8000 manzilida ishga tushadi.
 ```bash
 pytest
 ```
+```env
+DB_URL=postgresql+asyncpg://db_name:password@host:port/db_name
+EMAIL_FROM=your_email
+EMAIL_PASSWORD=your_password
+ADMIN_USERNAME=your_username
+ADMIN_PASSWORD=your_password
+REDIS_URL=redis://host:port/0
+```
+
 
 ## 📄 Litsenziya
 
