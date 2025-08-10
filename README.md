@@ -4,7 +4,7 @@
 
 **Fast-API-Game** — bu FastAPI yordamida yaratilgan o'yin ilovasi bo'lib, foydalanuvchilarga o'yinlar bilan bog'liq
 ma'lumotlarni taqdim etadi. Ushbu loyiha Python dasturlash tili va FastAPI web freymorkidan foydalangan holda ishlab
-chiqilgan.
+chiqilgan va Kahoot web-saytiga oxshatib yasalgan.
 
 ## ⚙️ Asosiy xususiyatlar
 
