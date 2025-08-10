@@ -19,7 +19,7 @@ chiqilgan va [**Kahoot**](https://kahoot.com/) — web-saytiga o‘xshatib yarat
 
 | Texnologiya      | Tavsifi                                               |
 |------------------|-------------------------------------------------------|
-| Python 3.11      | Asosiy dasturlash tili                                |
+| Python 3.12      | Asosiy dasturlash tili                                |
 | FAST API         | Backend API yaratish freymvorki                       |
 | PostgreSQL       | Ma’lumotlar bazasi                                    |
 | WebSocket        | Real-time ulanish                                     |
@@ -55,7 +55,7 @@ docker-compose up --build
 4. Ma'lumotlar bazasini migratsiya qilish
 
 ```bash
-alembic upgrade head
+alembic revision --autogenerate -m "Create a baseline migrations && alembic upgrade head
 ```
 
 5. Ilovani ishga tushirish
