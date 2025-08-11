@@ -59,7 +59,8 @@ docker-compose up --build
 4. Ma'lumotlar bazasini migratsiya qilish
 
 ```bash
-alembic revision --autogenerate -m "Create a baseline migrations" && alembic upgrade head
+alembic revision --autogenerate -m "Create a baseline migrations"
+alembic upgrade head
 ```
 
 5. Ilovani ishga tushirish
