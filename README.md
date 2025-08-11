@@ -13,6 +13,7 @@ chiqilgan va [**Kahoot**](https://kahoot.com/) — web-saytiga o‘xshatib yarat
 - **Docker**: Ilovani konteynerlash va uni turli muhitlarda ishlatish imkonini beradi.
 - **SQLAlchemy**:Python ORM Bilan (asyns) tarzda ishlaydi va DB bilan malumot almashish tezroq boladi.
 - **Alembic**: Ma'lumotlar bazasidagi o'zgarishlarni boshqarish uchun migratsiya vositasi.
+- **Starlette Admin**: Starlette yoki FastAPI asosida ma’lumotlar bazasi uchun admin panel yaratish vositasi.
 - **pytest**: Testlarni yozish va bajarish uchun vosita.
 
 
@@ -67,6 +68,12 @@ alembic revision --autogenerate -m "Create a baseline migrations" && alembic upg
 uvicorn main:app --reload
 ```
 
+6. Admin panelni ishga tushirish
+
+```bash
+uvicorn web.app:app --host localhost --port 8000
+```
+
 Ilova http://127.0.0.1:8000 manzilida ishga tushadi.
 
 ## 🧪 Testlarni bajarish
@@ -87,7 +94,7 @@ REDIS_URL=redis://host:port/0
 
 ## 📊 Ma’lumotlar bazasi modeli
 
-[DrawSQL’da model sxemasini ko‘rish](https://drawsql.app/teams/gayrat-1/diagrams/leadrboard)
+[DrawSQL’da model sxemasini ko‘rish](https://drawsql.app/teams/gayrat-1/diagrams/fast-api-game)
 
 ## 📄 Litsenziya
 
