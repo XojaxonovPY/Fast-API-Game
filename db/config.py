@@ -54,22 +54,30 @@ class AbstractClass:
         return query.scalars().all()
 
 
+# class CreatedModel(SQLModel, AbstractClass, table=False):
+#     @declared_attr
+#     def __tablename__(cls):
+#         return cls.__name__.lower() + "s"
+#
+#     id: Optional[int] = Field(primary_key=True)
+#     created_at: Optional[datetime] = Field(
+#         sa_column_kwargs={
+#             "server_default": text("TIMEZONE('Asia/Tashkent', NOW())"),
+#             "nullable": False,
+#         },
+#     )
+#     updated_at: Optional[datetime] = Field(
+#         sa_column_kwargs={
+#             "server_default": text("TIMEZONE('Asia/Tashkent', NOW())"),
+#             "onupdate": func.now(),
+#             "nullable": False,
+#         },
+#     )
+
+# pytest use
 class CreatedModel(SQLModel, AbstractClass, table=False):
     @declared_attr
     def __tablename__(cls):
         return cls.__name__.lower() + "s"
 
     id: Optional[int] = Field(primary_key=True)
-    created_at: Optional[datetime] = Field(
-        sa_column_kwargs={
-            "server_default": text("TIMEZONE('Asia/Tashkent', NOW())"),
-            "nullable": False,
-        },
-    )
-    updated_at: Optional[datetime] = Field(
-        sa_column_kwargs={
-            "server_default": text("TIMEZONE('Asia/Tashkent', NOW())"),
-            "onupdate": func.now(),
-            "nullable": False,
-        },
-    )
