@@ -23,7 +23,7 @@ def create(c):
 
 @task
 def celery(c):
-    c.run('celery -A instruments.tasks:apps worker --loglevel=info --pool=solo')
+    c.run('celery -A instruments.tasks:app worker --loglevel=info --pool=solo')
 
 
 @task
