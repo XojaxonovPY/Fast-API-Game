@@ -1,10 +1,10 @@
-import asyncio
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
 from fastapi.security import OAuth2PasswordBearer
 from fastapi.staticfiles import StaticFiles
-from contextlib import asynccontextmanager
+
 from apps import main, socket, login_register
 from db import engine
 from db.models import metadata
